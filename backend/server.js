@@ -45,9 +45,8 @@ app.post("/api/students", async (req, res) => {
     });
   };
 
-  const meta = enrichStudent();
-
-  const newStudent = {
+  try { const meta = await enrichStudent();
+      const newStudent = {
     id: uuidv4(),
     name,
     age: parseInt(age),
@@ -58,8 +57,9 @@ app.post("/api/students", async (req, res) => {
 
   students.push(newStudent);
   res.status(201).json(newStudent);
+  } 
+  catch(e) { return res.status(500).json({ error: "Enrollment failed" })}
 });
-
 app.delete("/api/students/:id", (req, res) => {
   const { id } = req.params;
   const index = students.findIndex((s) => s.id === id);

@@ -51,7 +51,7 @@ export default function App() {
   }, []);
 
   const handleStudentAdded = (newStudent) => {
-    setStudents([...students, newStudent]);
+    setStudents(prev => [...students, newStudent]);
     setShowForm(false);
   };
 
